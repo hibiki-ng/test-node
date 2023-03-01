@@ -49,7 +49,7 @@ router.post('/getData', (req, res) => {
     });
 });
 
-app.post('/insert', (req, res) => {
+router.post('/insert', (req, res) => {
   const data = req.body;
   console.log(data);
   const value = data.value;
@@ -73,7 +73,7 @@ app.post('/insert', (req, res) => {
         });
 });
 
-app.post('/delete', (req, res) => {
+router.post('/delete', (req, res) => {
   const data = req.body;
   const user = data.user;
   const value = data.value;

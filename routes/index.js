@@ -49,4 +49,52 @@ router.post('/getData', (req, res) => {
     });
 });
 
+app.post('/insert', (req, res) => {
+  const data = req.body;
+  console.log(data);
+  const value = data.value;
+  const user = data.user;
+
+  if (!user) {
+    return res.status(400).send("Missing user parameter in request body");
+  }
+
+  const collection = client.db("test").collection(user);
+  collection.insertOne({ value })
+        .then(result => {
+            console.log("Value inserted into database");
+            console.log(res.headersSent); // Outputs: false
+            res.send("Value inserted into database: " + value);
+            console.log(res.headersSent); // Outputs: true
+        })
+        .catch(err => {
+            console.log(err);
+            return res.status(500).send("Error inserting data into database");
+        });
+});
+
+app.post('/delete', (req, res) => {
+  const data = req.body;
+  const user = data.user;
+  const value = data.value;
+
+  if (!user) {
+    return res.status(400).send("Missing user parameter in request body");
+  }
+
+  if (!value) {
+    return res.status(400).send("Missing value parameter in request body");
+  }
+
+  const collection = client.db("test").collection(user);
+  collection.deleteOne({ value })
+    .then(result => {
+      console.log("Value deleted from database");
+    })
+    .catch(err => {
+      console.log(err);
+      return res.status(500).send("Error deleting data from database");
+    });
+});
+
 module.exports = router;

@@ -5,6 +5,8 @@ let requestOptions = {
     rejectUnauthorized: false
   };
 
+let idShown = [];
+
 function showData() {
     $('#main')[0].innerHTML = '';
 
@@ -15,6 +17,7 @@ function showData() {
             
             for (let i = 0; i < data.length; i++) {
                 let content = '';
+                idShown.push(data[i].id);
 
                 let date = '';
                 let datefr = '';
@@ -36,7 +39,7 @@ function showData() {
                             '</div>';
 
                 $('#main')[0].innerHTML += content;
-                $('#'+data[i].id)[0].innerText = data[i].value;
+                $('#'+data[i].id)[0].innerHTML = data[i].value;
             }
             
             console.log(content);
@@ -49,6 +52,11 @@ function showData() {
 function saveMemo() {
     let value = $('#input')[0].value;
     let user = 'hibiki';
+
+    if (value == '') {
+        alert('La note est vide');
+        return;
+    }
 
     let requestOptions = {
         method: 'POST',
@@ -87,5 +95,5 @@ function deleteMemo(value) {
 $(document).ready(function() {
     showData();
 
-    //setInterval(showData, 5000);
+    setInterval(showData, 30000);
 });

@@ -20,11 +20,14 @@ router.post('/insert', async (req, res) => {
 
   const lastDocument = await collection.findOne({}, { sort: { id: -1 } });
   const lastId = lastDocument ? Number.parseInt(lastDocument.id, 10) : 0;
-
   const newId = lastId + 1;
+
+  const datetime = new Date();
+
   const newData = {
     value: value,
     id: newId,
+    datetime: datetime
   };
 
   if (!user) {
@@ -56,6 +59,9 @@ router.post('/insert', async (req, res) => {
 router.post('/getData', (req, res) => {
   const user = req.body.user;
   const collection = client.db("test").collection(user);
+
+  const now = new Date();
+  console.log("now: ", now);
 
   collection.find({}).toArray()
     .then(docs => {

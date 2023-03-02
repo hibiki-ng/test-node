@@ -50,16 +50,30 @@ body {
 
 .element {
     display: inline-flex;
-    align-items: center;
+    flex-direction: column;
     padding: 5px 10px;
     color: #f0f0f0;
     border: 1px solid #cccccc;
     border-radius: 5px;
     max-width: 30%;
+    min-width: 10%;
     max-height: 150px;
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: ellipsis;
+}
+
+.element .element-date {
+    width: 90%;
+    font-size: 0.7rem;
+    color: #cccccc;
+    border-bottom: 1px solid #cccccc;
+}
+
+.element .element-main {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
 }
 
 .element span {

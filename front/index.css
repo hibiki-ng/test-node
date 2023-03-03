@@ -102,6 +102,7 @@ body {
     display: flex;
     width: 100%;
     justify-content: space-between;
+    align-items: center;
 }
 
 .element span {
@@ -117,6 +118,11 @@ body {
     margin-right: 5px;
     text-align: end;
     cursor: pointer;
+}
+
+.element img {
+    margin-top: 0.5rem;
+    max-width: 50%;
 }
 
 @media screen and (max-width: 767px) {

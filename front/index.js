@@ -8,41 +8,43 @@ let requestOptions = {
 let idShown = [];
 
 function showData() {
-    $('#main')[0].innerHTML = '';
+    console.log('show data');
 
     fetch('https://test-node-mauve.vercel.app/getData', requestOptions)
         .then(response => response.json())
         .then(data => {
-            console.log(data);
             
             for (let i = 0; i < data.length; i++) {
                 let content = '';
-                idShown.push(data[i].id);
+                if (!idShown.includes(data[i].id)) {
+                    idShown.push(data[i].id);
+                    
+                    let date = '';
+                    let datefr = '';
+                    let time = '';
+                    if (data[i].datetime != null) {
+                        date = data[i].datetime.split('T')[0];
+                        time = data[i].datetime.split('T')[1].split('.')[0];
+                        datefr = date.split('-')[2] + '/' + date.split('-')[1] + '/' + date.split('-')[0] + ' ' + time;
+                    } else {
+                        date = 'No date';
+                    }
 
-                let date = '';
-                let datefr = '';
-                let time = '';
-                if (data[i].datetime != null) {
-                    date = data[i].datetime.split('T')[0];
-                    time = data[i].datetime.split('T')[1].split('.')[0];
-                    datefr = date.split('-')[2] + '/' + date.split('-')[1] + '/' + date.split('-')[0] + ' ' + time;
-                } else {
-                    date = 'No date';
+                    content += '<div class="element">' +
+                                    '<div class="element-date">' + datefr + '</div>' +
+                                    '<div class="element-main">' +
+                                        '<span id="'+ data[i].id +'"></span>' +
+                                        '<i class="fa-regular fa-trash-can" style="color: white;" onclick="deleteMemo(\'' + data[i].id +'\')"></i>' +
+                                    '</div>' +
+                                '</div>';
+
+                    $('#main')[0].innerHTML += content;
+                    $('#'+data[i].id)[0].innerHTML = data[i].value;
                 }
-
-                content += '<div class="element">' +
-                                '<div class="element-date">' + datefr + '</div>' +
-                                '<div class="element-main">' +
-                                    '<span id="'+ data[i].id +'"></span>' +
-                                    '<i class="fa-regular fa-trash-can" style="color: white;" onclick="deleteMemo(\'' + data[i].id +'\')"></i>' +
-                                '</div>' +
-                            '</div>';
-
-                $('#main')[0].innerHTML += content;
-                $('#'+data[i].id)[0].innerHTML = data[i].value;
             }
-            
-            console.log(content);
+
+            console.log('idShown: ');
+            console.log(idShown);
             
         })
         .catch(error => console.error(error));
@@ -93,7 +95,8 @@ function deleteMemo(value) {
 }
 
 $(document).ready(function() {
+    $('#main')[0].innerHTML = '';
     showData();
 
-    setInterval(showData, 30000);
+    setInterval(showData, 5000);
 });

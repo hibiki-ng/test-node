@@ -70,8 +70,9 @@ body {
 }
 
 #main {
-    display: flex;
-    justify-content: space-evenly;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(10%, 30%));
+    gap: 1.6rem; 
     width: 80%;
     margin-top: 3rem;
 }
@@ -80,10 +81,12 @@ body {
     display: inline-flex;
     flex-direction: column;
     padding: 5px 10px;
+    margin: 20px 5px;
     color: #f0f0f0;
     border: 1px solid #cccccc;
     border-radius: 5px;
-    max-width: 30%;
+    width: 100%;
+    max-width: none !important; 
     min-width: 10%;
     max-height: 150px;
     text-overflow: ellipsis;
@@ -149,6 +152,7 @@ body {
     
     #main {
         flex-direction: column;
+        flex-wrap: wrap;
         align-items: center;
         width: 100%;
     }

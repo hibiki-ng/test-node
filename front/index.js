@@ -13,7 +13,7 @@ function showData() {
     fetch('https://test-node-mauve.vercel.app/getData', requestOptions)
         .then(response => response.json())
         .then(data => {
-            
+            let fetchedIds = [];            
             for (let i = 0; i < data.length; i++) {
                 let content = '';
                 if (!idShown.includes(data[i].id)) {
@@ -41,7 +41,13 @@ function showData() {
                     $('#main')[0].innerHTML += content;
                     $('#'+data[i].id)[0].innerHTML = data[i].value;
                 }
+                fetchedIds.push(data[i].id);
             }
+
+            let idsToDelete = idShown.filter(id => !fetchedIds.includes(id));
+            idsToDelete.forEach(id => {
+                $('#' + id).closest('.element').remove();
+            });
 
             console.log('idShown: ');
             console.log(idShown);

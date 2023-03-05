@@ -14,6 +14,9 @@ function showData() {
         .then(response => response.json())
         .then(data => {
             
+            console.log("data fetched");
+            console.log(data);
+            
             for (let i = 0; i < data.length; i++) {
                 let content = '';
                 if (!idShown.includes(data[i].id)) {
@@ -30,7 +33,7 @@ function showData() {
                         date = 'No date';
                     }
 
-                    content += '<div class="element">' +
+                    content += '<div class="element" id="note-'+ data[i].id +'">' +
                                     '<div class="element-date">' + datefr + '</div>' +
                                     '<div class="element-main">' +
                                         '<span id="'+ data[i].id +'"></span>' +
@@ -76,10 +79,25 @@ function saveMemo() {
 }
 
 function deleteMemo(value) {
+    console.log("value deleted");
     console.log(value);
     let user = 'hibiki';
 
-    let requestOptions = {
+    if (typeof value !== 'number') {
+        value = parseInt(value);
+    }
+
+    let idToDelete = idShown.indexOf(value);
+    console.log("idToDelete: "+ idToDelete);
+
+    idShown.splice(idToDelete, 1);
+    $('#note-'+value)[0].remove();
+
+
+    console.log('idShown after deletion');
+    console.log(idShown);
+
+    requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ user: user, id: value }),

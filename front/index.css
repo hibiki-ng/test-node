@@ -1,7 +1,7 @@
 body {
     margin: 0;
     padding: 0;
-    background-color: #202124;
+    background-color: #151619;
     color: #f0f0f0;
     overflow-x: hidden;
     display: flex;
@@ -83,7 +83,8 @@ body {
     padding: 5px 10px;
     margin: 20px 5px;
     color: #f0f0f0;
-    border: 1px solid #cccccc;
+    background-color: #323339;
+    /*border: 1px solid #cccccc;*/
     border-radius: 5px;
     width: 100%;
     max-width: none !important; 
@@ -96,7 +97,7 @@ body {
 }
 
 .element .element-date {
-    width: 90%;
+    width: 80%;
     font-size: 0.7rem;
     color: #cccccc;
     border-bottom: 1px solid #cccccc;
@@ -105,23 +106,27 @@ body {
 .element .element-main {
     display: flex;
     width: 100%;
+    height: 100%;
     justify-content: space-between;
     align-items: center;
 }
 
 .element span {
-    width: 90%;
+    width: 80%;
     overflow: auto;
     word-wrap: break-word;
     white-space: pre-wrap;
-    height: 100%;
+    height: 90%;
     max-height: 150px;
 }
 
 .element i {
     width: 10%;
-    margin-right: 5px;
-    text-align: end;
+    margin: 0px 5px;
+    text-align: center;
+    background-color: #ea613e;
+    padding: 5px 5px;
+    border-radius: 50px;
     cursor: pointer;
 }
 
